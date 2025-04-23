@@ -13,8 +13,8 @@ public class FilterRequest {
 
     private String search;
     private BlogStatus blogStatus;
-    private int pageNumber; // Page number to fetch
-    private int pageSize;   // Size of each page
-    private String sortDirection; // Sorting direction (ASC/DESC)
-    private String filter;
+    private int pageNumber = 0;
+    private int pageSize = 20;
+    private String sortDirection = "DESC";
+    private String filter = "createdAt";
 }

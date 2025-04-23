@@ -18,8 +18,9 @@ public interface BlogRepository extends JpaRepository<Blog, Long>{
     @Query("SELECT new com.blog.dto.BlogResponse(b.blogId, b.title, b.description, b.status, b.blogStatus, b.createdAt, b.updatedAt) " +
             "FROM Blog b " +
             "WHERE b.status = true " +
-            "AND (LOWER(b.title) LIKE LOWER(CONCAT('%', :search, '%')) " +
-            "OR LOWER(b.description) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+            "AND (:search IS NULL OR :search = '' OR " +
+            "     LOWER(b.title) LIKE LOWER(CONCAT('%', :search, '%')) " +
+            "     OR LOWER(b.description) LIKE LOWER(CONCAT('%', :search, '%'))) " +
             "AND (:blogStatus IS NULL OR b.blogStatus = :blogStatus) " +
             "ORDER BY b.createdAt DESC")
     Page<BlogResponse> findAllBlog(@Param("search") String search,

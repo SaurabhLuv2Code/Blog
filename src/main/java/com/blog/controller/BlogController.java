@@ -4,6 +4,7 @@ import com.blog.dto.BlogRequest;
 import com.blog.dto.BlogResponse;
 import com.blog.dto.FilterRequest;
 import com.blog.entity.Blog;
+import com.blog.entity.BlogStatus;
 import com.blog.service.BlogService;
 import com.blog.utils.ApiMessage;
 import com.blog.utils.ApiResponse;
@@ -32,12 +33,14 @@ public class BlogController {
         return apiResponse.getResponse(apiResponse);
     }
 
-    @PostMapping(value = "get_blog_list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBlogList(@RequestBody FilterRequest filterRequest) throws JsonProcessingException {
+    @GetMapping(value = "get_blog_list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getBlogList(@ModelAttribute FilterRequest filterRequest) throws JsonProcessingException {
         Page<BlogResponse> blogResponses = blogService.filterBlogs(filterRequest);
         ApiResponse apiResponse = new ApiResponse(HttpStatus.OK, true, blogResponses, ApiMessage.Api_Message);
         return apiResponse.getResponse(apiResponse);
     }
+
+
 
 
 
